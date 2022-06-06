@@ -10,6 +10,7 @@ def load_user(user_id):
 
 class User(db.Model,UserMixin):
 
+    # Table for different information about users
     __tablename__ = 'users'
 
     id = db.Column(db.Integer,primary_key=True)
@@ -25,13 +26,14 @@ class User(db.Model,UserMixin):
         self.username = username
         self.password_hash = generate_password_hash(password)
 
+    # To check whether the passwotd matches database
     def check_password(self,password):
         return check_password_hash(self.password_hash,password)
 
     def __repr__(self):
         return f"Username {self.username}"
 
-
+# Table for blog posts. One user can have many blog posts
 class BlogPost(db.Model):
 
     users = db.relationship(User)
